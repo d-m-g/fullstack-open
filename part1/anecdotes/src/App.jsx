@@ -11,33 +11,51 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
+  const size = anecdotes.length
    
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(size).fill(0))
+  const mostVotedIndex = votes.reduce(
+    (bestIndex, voteCount, index) => voteCount > votes[bestIndex] ? index : bestIndex,
+    0
+  )
 
   function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max)
   }
   
   const getNewAnecdote = () => {
-    const size = anecdotes.length
     const newNum = getRandomInt(size)
 
     if (newNum === selected) {
       return getNewAnecdote()
     }
 
-  setSelected(newNum)
+    setSelected(newNum)
   }
-      
+
+  const addVote = () => {
+    const copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
+  }
 
   return (
     <div>
+      <Header text="Anecdote of the day"/>
       {anecdotes[selected]}
       <br/>
+      This anecdote has {votes[selected]} {votes[selected] === 1 ? 'vote' : 'votes'}
+      <br/>
+      <button onClick={addVote}>Vote</button>
       <button onClick={getNewAnecdote}>Next anecdote</button>
+      <Header text="Anecdote with most votes"/>
+      {anecdotes[mostVotedIndex]}
+      <br/>
+      This anecdote has {votes[mostVotedIndex]} {votes[mostVotedIndex] === 1 ? 'vote' : 'votes'}
     </div>
   )
 }
 
-
+const Header = ({text}) => {return(<h1>{text}</h1>)}
 export default App
