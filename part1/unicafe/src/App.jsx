@@ -33,14 +33,14 @@ const Statistics = (props) => {
   return (
     <div>
       <Header text="statistics"/>
-      <p>
-      good {props.good} <br/>
-      neutral {props.neutral} <br/>
-      bad {props.bad} <br/>
-      all {all} <br/>
-      average {avg} <br/>
-      positive {pos} % <br/>
-      </p>
+      <div>
+        <StatisticLine text="good" value={props.good} percentage={false}/>
+        <StatisticLine text="neutral" value={props.neutral} percentage={false}/>
+        <StatisticLine text="bad" value={props.bad} percentage={false}/>
+        <StatisticLine text="all" value={all} percentage={false}/>
+        <StatisticLine text="average" value={avg} percentage={false}/>
+        <StatisticLine text="positive" value={pos} percentage={true}/>
+      </div>
     </div>
   )
 }
@@ -49,6 +49,14 @@ const Button = ({text, value, setter}) => {
   return (
     <button onClick={() => setter(value + 1)}>{text}</button>
   )
+}
+
+const StatisticLine = ({text, value, percentage}) => {
+  return(
+  <div>
+    {text} {' '} {value}{percentage ? ' %' : ''}
+    <br/>
+  </div>)
 }
 
 const Header = ({text}) => {return(<h1>{text}</h1>)}
