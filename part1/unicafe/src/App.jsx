@@ -23,6 +23,13 @@ const Statistics = (props) => {
   let all = props.good + props.neutral + props.bad
   let avg = (props.good - props.bad) / all
   let pos = props.good / all * 100
+
+  if (all === 0) {
+    return (
+      <div> No feedback has been given</div>
+    )
+  }
+
   return (
     <div>
       <Header text="statistics"/>
