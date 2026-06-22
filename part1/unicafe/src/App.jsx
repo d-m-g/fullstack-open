@@ -7,7 +7,7 @@ const App = () => {
   const [bad, setBad] = useState(0)
   let all = good + neutral + bad
   let avg = (good - bad) / all
-  let pos = good / all
+  let pos = good / all * 100
 
   return (
     <div>
@@ -25,7 +25,6 @@ const App = () => {
       all {all} <br/>
       average {avg} <br/>
       positive {pos} % <br/>
-
       </p>
     </div>
   )
